@@ -1,0 +1,17 @@
+# Diretórios
+node_modules/
+dist/
+
+# Arquivos
+.env
+*.log
+
+# Dependências de desenvolvimento
+**/coverage/
+**/.nyc_output/
+**/.eslintcache
+**/.vscode/
+
+# Dependências específicas de sistema operacional
+.DS_Store
+Thumbs.db
