@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema<IUser>({
   password: String,
   admin: Boolean,
   avatar: String,
+  posts: Array,
 });
 
 const User = mongoose.model<IUser>("User", UserSchema);
