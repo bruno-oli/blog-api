@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema<IUser>({
   password: String,
   admin: Boolean,
   avatar: String,
+  banner: String,
   posts: Array,
 });
 

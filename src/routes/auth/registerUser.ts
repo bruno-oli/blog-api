@@ -1,15 +1,26 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import User from "../../models/User";
+import { RegisterUserSchema } from "../../types/types";
+import * as z from "zod";
 
 const routers = Router();
 
 routers.post("/auth/register", async (req, res) => {
-  const { name, nickname, email, password, avatar } = req.body;
-
-  if (!name || !nickname || !email || !password) {
-    return res.status(422).json({ msg: "Todos os campos são obrigatórios!" });
+  try {
+    RegisterUserSchema.parse(req.body);
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return res.status(400).json({
+        msg: "Dados inválidos",
+        errors: err.errors.map((e) => e.message),
+      });
+    } else {
+      return res.status(500).json({ msg: "Erro interno do servidor" });
+    }
   }
+
+  const { name, nickname, email, password } = req.body;
 
   if (await User.findOne({ email })) {
     return res.status(422).json({ msg: "Esse e-mail já está sendo usado!" });
@@ -29,9 +40,9 @@ routers.post("/auth/register", async (req, res) => {
     email,
     password: hashedPassword,
     admin: false,
-    avatar: avatar
-      ? avatar
-      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    avatar:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    banner: "",
     posts: [],
   });
 

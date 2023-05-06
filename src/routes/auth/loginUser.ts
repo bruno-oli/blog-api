@@ -37,7 +37,7 @@ routers.post("/auth/login", async (req, res) => {
     );
     return res
       .status(200)
-      .json({ msg: "User logged in", token, userId: user._id });
+      .json({ msg: "Usuário logado com sucesso!", token, userId: user._id });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
