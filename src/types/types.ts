@@ -62,3 +62,11 @@ export const RegisterUserSchema = z.object({
     .nonempty("A senha deve ser preenchida")
     .min(6, "A senha deve ter pelo menos 6 caracteres"),
 });
+
+export const LoginUserSchema = z.object({
+  email: z
+    .string()
+    .email("Insira um email valido!")
+    .nonempty("O e-mail deve ser preenchido"),
+  password: z.string().nonempty("A senha deve ser preenchida"),
+});
